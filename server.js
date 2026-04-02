@@ -7,15 +7,15 @@ const registrationRoutes = require('./routes/registration');
 
 const app = express();
 
-// ── CORS (UPDATED FOR YOUR FRONTEND) ─────────────────────────
+// ── CORS (allow all origins for hackathon) ───────────────────
 app.use(cors({
-  origin: [
-    'http://localhost:5173',
-    'http://localhost:4173',
-    'https://ieee-hackthone.vercel.app' // ✅ your frontend
-  ],
-  methods: ['GET', 'POST'],
+  origin: '*',
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 }));
+
+// ── Handle preflight OPTIONS for all routes ──────────────────
+app.options('*', cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
